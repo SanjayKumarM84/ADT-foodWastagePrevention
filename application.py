@@ -5,5 +5,5 @@ app = FastAPI()
 
 # Define a route
 @app.get("/")
-def read_root():
+def home():
     return {"message": "Hello, World!"}
