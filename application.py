@@ -1,7 +1,7 @@
 import json
 
 import uvicorn
-from commonModules import constructQuery
+from commonModules import *
 from config import *
 from fastapi import FastAPI, HTTPException, Query
 
@@ -11,7 +11,7 @@ app = FastAPI()
 async def getTransitData(fruitName: str = Query(None, alias="fruitName"),transitID: str = Query(None, alias="transitID")):
     try:
         if not fruitName and not transitID:
-            raise HTTPException(status_code=400, detail="Please enter fruit name or transit id")
+            return failureResponse("Please enter fruit name or transit id")
         else:
             dataRetrivalQuery = constructQuery(fruitName, transitID)
 
@@ -24,12 +24,9 @@ async def getTransitData(fruitName: str = Query(None, alias="fruitName"),transit
                 row_dict = dict(zip(columns, row))
                 row_dict["Transit_logs"] = json.loads(row_dict["Transit_logs"])
                 fruits_data.append(row_dict)
-            return {
-                "message": "Success",
-                "content": fruits_data
-            }
+            return successResponse(fruits_data)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise failureResponse(str(e))
 
 
 if __name__ == "__main__":
