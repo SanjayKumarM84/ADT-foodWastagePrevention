@@ -1,4 +1,4 @@
-#!/home/sanjay/ADT/foodWastagePrevention/zero-env/bin/python3
+#!/home/brucewayne/foodWastagePrevention/backend/ADT-foodWastagePrevention/zero-env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
